@@ -12,10 +12,14 @@ import { ColorSchemeName, Pressable } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import CallsScreen from '../screens/CallsScreen';
+import CameraScreen from '../screens/CameraScreen';
+import ChatsScreen from '../screens/ChatsScreen';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import SettingsScreen from '../screens/SettingsScreen';
+import StatusScreen from '../screens/StatusScreen';
+import { Ionicons } from '@expo/vector-icons';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
@@ -58,38 +62,49 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="ChatsScreen"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
+        header: () => { return null }
       }}>
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
+        name="StatusScreen"
+        component={StatusScreen}
+        options={({ navigation }: RootTabScreenProps<'StatusScreen'>) => ({
+          title: 'Status',
+          tabBarIcon: ({ color }) => <TabBarIcon name="circle" color={color} />,
         })}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
+        name="CallsScreen"
+        component={CallsScreen}
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Calls',
+          tabBarIcon: ({ color }) => <TabBarIcon name="phone" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="CameraScreen"
+        component={CameraScreen}
+        options={{
+          title: 'Camera',
+          tabBarIcon: ({ color }) => <TabBarIcon name="camera" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="ChatsScreen"
+        component={ChatsScreen}
+        options={{
+          title: 'Chats',
+          tabBarIcon: ({ color }) => {return (<Ionicons name="chatbox" size={28} color={color} />)},
+        }}
+      />
+      <BottomTab.Screen
+        name="SettingsScreen"
+        component={SettingsScreen}
+        options={{
+          title: 'Calls',
+          tabBarIcon: ({ color }) => {return (<Ionicons name="settings" size={28} color={color} />)},
         }}
       />
     </BottomTab.Navigator>
